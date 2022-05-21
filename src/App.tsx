@@ -1,19 +1,5 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
-const rotation = keyframes`
-  0% {
-    transform: rotate(0deg);
-    border-radius: 0px;
-  }
-  50% {
-    transform:rotate(360deg);
-    border-radius: 100px;
-  }
-  100% {
-    transform: rotate(0deg);
-    border-radius: 0px;
-  }
-`;
 const Wrapper = styled.div`
   display: flex;
   width: 100vw;
@@ -24,7 +10,7 @@ const Wrapper = styled.div`
   background-color: ${(props) => props.theme.backgroundColor};
 `;
 
-const Title = styled.div`
+const Title = styled.h1`
   color: ${(props) => props.theme.textColor};
 `;
 
