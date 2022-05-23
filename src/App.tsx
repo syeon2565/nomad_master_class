@@ -1,29 +1,18 @@
 import { useState } from "react";
+import styled from "styled-components";
+
+const Container = styled.div`
+  background-color: ${(props) => props.theme.bgColor};
+`;
+const H1 = styled.h1`
+  color: ${(props) => props.theme.textColor};
+`;
 
 function App() {
-  const [userName, setValue] = useState("");
-  const onChange = (event: React.FormEvent<HTMLInputElement>) => {
-    const {
-      currentTarget: { value },
-      // currentTarget은 EVEBTTarget & 형식에 HTMLInputElement 형식에서 value값을 찾아야한다!
-    } = event;
-    setValue(value);
-  };
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-  };
   return (
-    <>
-      <form onSubmit={onSubmit}>
-        <input
-          value={userName}
-          onChange={onChange}
-          type="text"
-          placeholder="username"
-        />
-        <button>Login</button>
-      </form>
-    </>
+    <Container>
+      <H1>protected</H1>
+    </Container>
   );
 }
 
