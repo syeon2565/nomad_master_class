@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import React from 'react';
 import styled from 'styled-components';
 import { useQuery } from 'react-query';
 import { fetchCoins } from './api';
@@ -9,25 +9,27 @@ const Container = styled.div`
   max-width: 480px;
   margin: 0 auto;
 `;
+
 const Header = styled.header`
   height: 10vh;
   display: flex;
-  justify-content: cetner;
+  justify-content: center;
   align-items: center;
 `;
 
 const CoinsList = styled.ul``;
+
 const Coin = styled.li`
   background-color: white;
   color: ${(props) => props.theme.bgColor};
   border-radius: 15px;
   margin-bottom: 10px;
   a {
-    display:flex;
+    align-items: center;
+    display: flex;
     padding: 20px;
-    align-items:center;
-    transition: color; 0.2s; ease-in;
-  } 
+    transition: color 0.2s ease-in;
+  }
   &:hover {
     a {
       color: ${(props) => props.theme.accentColor};
@@ -40,14 +42,14 @@ const Title = styled.h1`
   color: ${(props) => props.theme.accentColor};
 `;
 
-const Loader = styled.div`
+const Loader = styled.span`
   text-align: center;
-  dispaly: block;
+  display: block;
 `;
 
 const Img = styled.img`
-  width: 25px;
-  height: 25px;
+  width: 35px;
+  height: 35px;
   margin-right: 10px;
 `;
 
@@ -69,17 +71,18 @@ function Coins() {
         <Title>Coins</Title>
       </Header>
       {isLoading ? (
-        <Loader>loading</Loader>
+        <Loader>Loading...</Loader>
       ) : (
         <CoinsList>
-          {data?.slice(0, 100).map((coin) => (
+          {data?.slice(0, 10).map((coin) => (
             <Coin key={coin.id}>
-              <Link
-                to={{
-                  pathname: `${coin.id}`,
-                }}
-              >
-                <Img src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`} />
+              <Link to={`/${coin.id}`} state={{ name: coin.name }}>
+                <Img
+                  src={`https://raw.githubusercontent.com/ErikThiart/cryptocurrency-icons/master/16/${coin.name
+                    .toLowerCase()
+                    .split(' ')
+                    .join('-')}.png`}
+                />
                 {coin.name} &rarr;
               </Link>
             </Coin>
@@ -89,5 +92,4 @@ function Coins() {
     </Container>
   );
 }
-
 export default Coins;
