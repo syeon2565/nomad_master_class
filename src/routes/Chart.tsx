@@ -8,7 +8,7 @@ interface ChartProps {
 }
 interface IHistorical {
   time_open: string;
-  time_clos: string;
+  time_close: string;
   open: number;
   high: number;
   low: number;
@@ -36,8 +36,16 @@ function Chart({ coinId }: ChartProps) {
             chart: { background: 'transparent', height: 500, width: 500, toolbar: { show: false } },
             grid: { show: false },
             stroke: { curve: 'smooth', width: 4 },
-            xaxis: { axisTicks: { show: false }, axisBorder: { show: false }, labels: { show: false } },
+            xaxis: {
+              axisTicks: { show: false },
+              axisBorder: { show: false },
+              labels: { show: false },
+              type: 'datetime',
+              categories: data?.map((price) => price.time_close) ?? [],
+            },
             yaxis: { show: false },
+            fill: { type: 'gradient', gradient: { gradientToColors: ['blue'], stops: [0, 100] }, colors: ['red'] },
+            tooltip: { y: { formatter: (value) => `$${value.toFixed(3)}` } },
           }}
         />
       )}
