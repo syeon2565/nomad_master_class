@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { ReactQueryDevtools } from 'react-query/devtools';
+import { useRecoilValue } from 'recoil';
 import Router from './Router';
 import { darkTheme, lightTheme } from './theme';
+import isDarkAtom from './atoms';
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
@@ -67,12 +69,11 @@ a {
 `;
 
 function App() {
-  const [isDark, setIsDark] = useState(false);
-  const toggleDark = () => setIsDark((current) => !current);
+  const isDark = useRecoilValue(isDarkAtom);
   return (
     <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
       <GlobalStyle />
-      <Router toggleDark={toggleDark} isDark={isDark} />
+      <Router />
       <ReactQueryDevtools initialIsOpen />
     </ThemeProvider>
   );
