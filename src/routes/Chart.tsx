@@ -5,6 +5,8 @@ import { fetchCoinHistory } from './api';
 
 interface ChartProps {
   coinId: string;
+  isDark: boolean;
+  children: string;
 }
 interface IHistorical {
   time_open: string;
@@ -16,7 +18,7 @@ interface IHistorical {
   volume: number;
   market_cap: number;
 }
-function Chart({ coinId }: ChartProps) {
+function Chart({ coinId, isDark, children }: ChartProps) {
   const { isLoading, data } = useQuery<IHistorical[]>(['ohlcv', coinId], () => fetchCoinHistory(coinId));
   return (
     <div>
@@ -32,7 +34,7 @@ function Chart({ coinId }: ChartProps) {
             },
           ]}
           options={{
-            theme: { mode: 'dark' },
+            theme: { mode: isDark ? 'dark' : 'light' },
             chart: { background: 'transparent', height: 500, width: 500, toolbar: { show: false } },
             grid: { show: false },
             stroke: { curve: 'smooth', width: 4 },

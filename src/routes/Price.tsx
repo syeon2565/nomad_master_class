@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Price() {
+function Price(props: any) {
   return <div>Price</div>;
 }
 

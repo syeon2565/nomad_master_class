@@ -5,6 +5,8 @@ import { useQuery } from 'react-query';
 import { useLocation, useParams, useMatch, Outlet, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { fetchCoinInfo, fetchCoinTickers } from './api';
+import Chart from './Chart';
+import Price from './Price';
 
 const Title = styled.h1`
   font-size: 48px;
@@ -130,7 +132,10 @@ interface PriceData {
   };
 }
 
-function Coin() {
+interface ICoinProps {
+  isDark: boolean;
+}
+function Coin({ isDark }: ICoinProps) {
   const { coinId } = useParams();
   const location = useLocation();
   const state = location.state as RouteState;
